@@ -9,9 +9,9 @@ class CategoriesSerializer(serializers.ModelSerializer):
         model=Categories
         fields="__all__"
 
-    # def create(self, validated_data):
-    #     user=self.context.get("user")
-    #     return Categories.objects.create(**validated_data,user=user)
+    def create(self, validated_data):
+        user=self.context.get("user")
+        return Categories.objects.create(**validated_data,user=user)
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
