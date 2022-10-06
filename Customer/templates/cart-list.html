@@ -30,7 +30,9 @@
             status:{{cart.status}}
         </div>
         <div class="col-3">
-            <a href="#" class="btn btn-outline-danger">Remove</a>
+            {%if cart.satus != "cancelled"%}
+            <a href="{%url 'remove-product' cart.id %}" class="btn btn-outline-danger">Remove</a>
+            {%endif%}
             {%if cart.status != "order-placed"%}
             <a href="{%url 'place-order' cart.id cart.product.id%}" class="btn btn-outline-success">Checkout</a>
             {%endif%}

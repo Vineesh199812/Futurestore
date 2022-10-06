@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 from Owner.models import Products,Carts,Orders
 from Customer import forms
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 class RegistrationView(CreateView):
     form_class=forms.RegistrationForm
@@ -27,8 +28,10 @@ class LoginView(FormView):
             if user:
                 login(request,user)
                 if request.user.is_superuser:
+                    messages.success(request,"admin logged in")
                     return redirect("dashboard")
                 else:
+                    messages.success(request,"customer logged in")
                     return redirect("home")
             else:
                 return render(request,"login.html",{"form":form})
@@ -65,6 +68,7 @@ class AddtoCartView(DetailView):
         Carts.objects.create(product=product,
         user=user,
         qty=qty)
+        messages.success(request,"Item has been added to cart")
         return redirect("home")
 
 class MyCartView(ListView):
@@ -75,6 +79,16 @@ class MyCartView(ListView):
     def get_queryset(self):
         return Carts.objects.filter(user=self.request.user).exclude(status="cancelled").order_by("-created_date")   # - for sort in descendin order
 
+
+
+def remove_item(request, *args, **kwargs):
+        id = kwargs.get("id")
+        cart = Carts.objects.get(id=id)
+        Carts.objects.get(id=id)
+        cart.status="cancelled"
+        cart.save()
+        messages.success(request, "item has been removed from cart")
+        return redirect("home")
 
 class PlaceOrderView(FormView):
     template_name = "place-order.html"
@@ -92,19 +106,8 @@ class PlaceOrderView(FormView):
                               delivery_address=delivery_address)
         cart.status="order-placed"
         cart.save()
+        messages.success(request,"Order Placed")
         return redirect("home")
 
-
-# def remove_product(request, *args, **kwargs):
-#         id = kwargs.get("pk")
-#         Carts.objects.get(id=id).delete()
-#
-#         # messages.success(request, "product has been removed from cart")
-#         return redirect("home")
-#
-# class Checkout(DetailView):
-#    model = Orders
-#    template_name = "order.html"
-#    form_class=forms.CheckoutForm
 
 

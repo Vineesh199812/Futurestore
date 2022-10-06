@@ -1,0 +1,47 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>order_list-page</title>-->
+<!--  &lt;!&ndash; CSS only &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">-->
+<!--    &lt;!&ndash; JavaScript Bundle with Popper &ndash;&gt;-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>-->
+
+{%extends 'base1.html'%}
+{%block body_block%}
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-8">
+      <table class="table">
+        <tr>
+          <th>ProductName</th>
+          <th>Category</th>
+          <th>User</th>
+          <th>Created_Date</th>
+          <th>Action</th>
+        </tr>
+        {%for order in orders%}
+        <tr>
+          <td>{{order.product.product_name}}</td>
+          <td>{{order.product.category.category_name}}</td>
+          <td>{{order.user}}</td>
+          <td>{{order.created_date}}</td>
+          <td>
+            <a href="{%url 'order-details' order.id%}">view</a>
+          </td>
+        </tr>
+        {%endfor%}
+      </table>
+    </div>
+    <div class="col-3">
+
+    </div>
+  </div>
+</div>
+{%endblock%}
+<!--</body>-->
+<!--</html>-->

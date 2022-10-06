@@ -57,6 +57,7 @@ class Orders(models.Model):
     )
     status=models.CharField(max_length=150,choices=options,default="order-placed")
     delivery_address=models.CharField(max_length=200,null=True)
+    expected_delivery_date=models.DateField(null=True)
 
 class Reviews(models.Model):
     product=models.ForeignKey(Products, on_delete=models.CASCADE)

@@ -1,13 +1,21 @@
 from django.urls import path
 from api.views import CategoriesView,ProductsView
 from rest_framework.routers import DefaultRouter
-from api import views
+from api.views import *
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework_simplejwt.views import TokenRefreshView,TokenObtainPairView
+
 
 router=DefaultRouter()
-router.register("categories",views.CategoriesView,basename="categories")
-router.register("products",views.ProductsView,basename="products")
-# router.register("categories/<int:id>/products",views.ProductsView,basename="products-list")
+router.register("categories/post",CategoriesView,basename="categories")
+router.register("products",ProductsView,basename="products")
+router.register("carts",CartsView,basename="carts")
+router.register("accounts/signup",UserRegistrationView,basename="registration")
 
 urlpatterns=[
-    # path("categories/<int:id>/products",views.ProductsView.as_view())
-]+router.urls
+    path("token/",TokenObtainPairView.as_view()),
+    path("token/refresh/",TokenRefreshView.as_view()),
+    # path("accounts/token/",obtain_auth_token)
+]+router.urls+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
