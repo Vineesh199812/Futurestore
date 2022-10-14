@@ -2,11 +2,19 @@ from django.shortcuts import render,redirect
 
 # Create your views here.
 
-from django.views.generic import TemplateView,ListView,DetailView
+from django.views.generic import View,TemplateView,ListView,DetailView
 from django.contrib import messages
 from Owner.models import *
 from django.core.mail import send_mail
 from Owner.forms import OrderUpdateForm
+from django.contrib.auth import authenticate,login,logout
+
+
+class SignOutView(View):
+    def get(self, request, *args, **kwargs):
+        print(request.user.is_authenticated)
+        logout(request)
+        return redirect("login")
 
 class AdminDashBoardView(TemplateView):
     template_name = "dashboard.html"

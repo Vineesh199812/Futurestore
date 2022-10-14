@@ -13,6 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{%static 'css/styles.css'%}" rel="stylesheet" />
+        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
         <!-- Navigation-->
@@ -23,6 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{%url 'dashboard'%}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'signout'%}">Logout</a></li>
                         <li class="nav-item"><a class="nav-link" href="{%url 'products-all'%}">List-Products</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -63,7 +65,7 @@
         <div class="col-1"></div>
     </div>
             </div>
-        <header class="bg-dark py-5">
+        <header class="bg-dark py-1">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Shop in style</h1>
