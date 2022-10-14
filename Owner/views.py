@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 
 from django.views.generic import TemplateView,ListView,DetailView
 from django.contrib import messages
-from Owner.models import Orders
+from Owner.models import *
 from django.core.mail import send_mail
 from Owner.forms import OrderUpdateForm
 
@@ -29,6 +29,14 @@ class OrdersListView(ListView):
 
     def get_queryset(self):
         return Orders.objects.filter(status="order-placed")
+
+class ProductListView(ListView):
+    model = Products
+    context_object_name = "products"
+    template_name = "owner/product-list.html"
+
+    # def get_queryset(self):
+    #     return Products.objects.all()
 
 
 class OrderDetailView(DetailView):

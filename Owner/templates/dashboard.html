@@ -27,24 +27,32 @@
 <!--        </div>-->
 <!--        <div class="col-4"></div>-->
 <!--    </div>-->
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
-            <h1>Welcome Admin</h1>
+    <div class="row mb-5">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <h1>Welcome Admin {{request.user}}</h1>
         </div>
-        <div class="col-4"></div>
+        <div class="col-1"></div>
     </div>
     <div class="row">
-        <div class="col-4"></div>
+        <div class="col-4">
+        </div>
         <div class="col-4">
             <div class="btn btn-info">
                 New_Orders {{count}}
-
-                <a href="{%url 'neworders'%}" class="btn btn-outline-success">view</a>
             </div>
         </div>
-        <div class="col-4"></div>
+        <div class="col-4">
+            <a href="{%url 'neworders'%}" class="btn btn-outline-success">view</a>
+        </div>
     </div>
+<!--    <div class="row">-->
+<!--        <div class="col-4"></div>-->
+<!--        <div class="col-4">-->
+<!--            <a href="{%url 'products-all'%}" class="btn btn-outline-warning mt-5">List-Products</a>-->
+<!--        </div>-->
+<!--        <div class="col-4"></div>-->
+<!--    </div>-->
 </div>
 {%endblock%}
 <!--</body>-->

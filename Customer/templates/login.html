@@ -15,8 +15,8 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-1"></div>
+        <div class="col-10">
             {%if messages%}
             {%for m in messages%}
             {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
@@ -34,7 +34,7 @@
             {%endfor%}
             {%endif%}
         </div>
-        <div class="col-4"></div>
+        <div class="col-1"></div>
     </div>
     <div class="row">
         <div class="col-3"></div>
@@ -49,6 +49,13 @@
         </div>
         <div class="col-3"></div>
     </div>
+</div>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <a href="{%url 'registration'%}">Register as a New-User?</a>
+    </div>
+    <div class="col-4"></div>
 </div>
 
 

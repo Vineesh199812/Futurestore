@@ -23,7 +23,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{%url 'dashboard'%}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'products-all'%}">List-Products</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,8 +49,8 @@
         <!-- Header-->
         <div class="container">
                 <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-1"></div>
+        <div class="col-10">
             {%if messages%}
                 {%for m in messages%}
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -60,7 +60,7 @@
                 {%endfor%}
             {%endif%}
         </div>
-        <div class="col-4"></div>
+        <div class="col-1"></div>
     </div>
             </div>
         <header class="bg-dark py-5">

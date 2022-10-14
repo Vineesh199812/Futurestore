@@ -3,12 +3,14 @@ from django.shortcuts import render,redirect
 
 # Create your views here.
 
-from django.views.generic import CreateView,TemplateView,FormView,DetailView,DeleteView,ListView
+from django.views.generic import View,CreateView,TemplateView,FormView,DetailView,DeleteView,ListView
 from django.contrib.auth import authenticate,login,logout
 from Owner.models import Products,Carts,Orders
 from Customer import forms
 from django.urls import reverse_lazy
 from django.contrib import messages
+from Customer.decorators import signin_required
+from django.utils.decorators import method_decorator
 
 class RegistrationView(CreateView):
     form_class=forms.RegistrationForm
@@ -34,8 +36,17 @@ class LoginView(FormView):
                     messages.success(request,"customer logged in")
                     return redirect("home")
             else:
+                messages.error(request,"Invalid Username or Password")
                 return render(request,"login.html",{"form":form})
 
+@method_decorator(signin_required,name="dispatch")
+class SignOutView(View):
+    def get(self, request, *args, **kwargs):
+        print(request.user.is_authenticated)
+        logout(request)
+        return redirect("login")
+
+@method_decorator(signin_required,name="dispatch")
 class HomeView(TemplateView):
     template_name="home.html"
 
@@ -45,12 +56,14 @@ class HomeView(TemplateView):
         context["products"]=all_products
         return context
 
+@method_decorator(signin_required,name="dispatch")
 class ProductDetailView(DetailView):
     template_name="product-detail.html"
     model=Products
     context_object_name="product"
     pk_url_kwarg = "id"
 
+@method_decorator(signin_required,name="dispatch")
 class AddtoCartView(DetailView):
     template_name = "addto-cart.html"
     form_class = forms.CartForm
@@ -71,6 +84,7 @@ class AddtoCartView(DetailView):
         messages.success(request,"Item has been added to cart")
         return redirect("home")
 
+@method_decorator(signin_required,name="dispatch")
 class MyCartView(ListView):
     model=Carts
     template_name = "cart-list.html"
@@ -79,8 +93,7 @@ class MyCartView(ListView):
     def get_queryset(self):
         return Carts.objects.filter(user=self.request.user).exclude(status="cancelled").order_by("-created_date")   # - for sort in descendin order
 
-
-
+@signin_required
 def remove_item(request, *args, **kwargs):
         id = kwargs.get("id")
         cart = Carts.objects.get(id=id)
@@ -90,6 +103,7 @@ def remove_item(request, *args, **kwargs):
         messages.success(request, "item has been removed from cart")
         return redirect("home")
 
+@method_decorator(signin_required,name="dispatch")
 class PlaceOrderView(FormView):
     template_name = "place-order.html"
     form_class = forms.OrderForm
