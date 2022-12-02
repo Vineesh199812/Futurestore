@@ -12,7 +12,7 @@ class UserRegistrationView(ModelViewSet):
     queryset = User.objects.all()
 
 class CategoriesView(ModelViewSet):
-    # authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = CategorySerializer
     queryset = Categories.objects.all()
@@ -43,7 +43,7 @@ class CategoriesView(ModelViewSet):
 class ProductsView(ModelViewSet):
     serializer_class= ProductSerializer
     queryset = Products.objects.all()
-    # authentication_classes = [authentication.BasicAuthentication]
+    authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -105,7 +105,7 @@ class ProductsView(ModelViewSet):
 class CartsView(ModelViewSet):
     serializer_class = CartSerializer
     queryset = Carts.objects.all()
-    # authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
 #usernames : angular, vineesh
